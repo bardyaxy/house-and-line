@@ -1,4 +1,4 @@
-# House & Line
+# Hospitality Concepts and Design Services
 
 A responsive, editorial website for a hospitality design and consulting studio. The experience uses architectural drawing conventions to connect concept design, front- and back-of-house planning, permitting, construction coordination, and opening.
 
