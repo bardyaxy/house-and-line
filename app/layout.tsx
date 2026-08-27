@@ -3,22 +3,22 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://bardyaxy.github.io/house-and-line/'),
-  title: 'Hospitality Concepts and Design Services — Restaurant Design & Consulting',
+  title: 'Robert Stocker — Hospitality Concepts & Design Services',
   description:
-    'Restaurant concept, front-of-house and kitchen design, permitting, fire systems, and construction—from first sketch to final inspection.',
+    'Founder-led restaurant concept, design, permitting, and construction by Tacoma restaurateur and restaurant designer Robert Stocker.',
   applicationName: 'Hospitality Concepts and Design Services',
   openGraph: {
-    title: 'Hospitality Concepts and Design Services',
+    title: 'Robert Stocker — Hospitality Concepts & Design Services',
     description:
-      'Restaurant concept, front-of-house and kitchen design—from first sketch to final inspection.',
+      'Restaurateur, concept creator, and restaurant designer—from first sketch to final inspection.',
     type: 'website',
     siteName: 'Hospitality Concepts and Design Services',
-    images: [{ url: './og.png', width: 1200, height: 630, alt: 'P.S. Hospitality Concepts & Design Services — Inspired spaces, elevated experiences, lasting impressions' }],
+    images: [{ url: './og.png', width: 1200, height: 630, alt: 'Robert Stocker — Hospitality Concepts & Design Services — Restaurateur, creator, designer' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hospitality Concepts and Design Services',
-    description: 'Restaurant design, permitting, and construction—from first sketch to final inspection.',
+    title: 'Robert Stocker — Hospitality Concepts & Design Services',
+    description: 'Restaurateur, concept creator, and restaurant designer—from first sketch to final inspection.',
     images: ['./og.png'],
   },
 };

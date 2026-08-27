@@ -121,6 +121,30 @@ h2 em { color: var(--forest); font-weight: 400; }
 .proof-grid b { font: 400 25px var(--serif); }
 .proof-grid p { max-width: 30ch; margin: 18px 0 0; color: rgba(23,36,27,.65); font-size: 14px; line-height: 1.6; }
 
+/* Founder */
+.founder-section { position: relative; overflow: hidden; background: #2a2116; color: var(--paper); }
+.founder-section::before { content: "ROBERT STOCKER"; position: absolute; right: -15px; bottom: -24px; color: rgba(242,239,228,.025); font: 400 clamp(90px, 18vw, 250px)/.8 var(--serif); letter-spacing: -.06em; white-space: nowrap; pointer-events: none; }
+.founder-section .shell { position: relative; }
+.founder-grid { display: grid; grid-template-columns: 1.15fr .65fr; align-items: start; gap: clamp(60px, 10vw, 145px); }
+.founder-overline { margin: 0 0 24px; color: #d1b46e; font: 700 10px var(--mono); letter-spacing: .17em; text-transform: uppercase; }
+.founder-grid h2 { max-width: 770px; }
+.founder-grid h2 em { color: #d1b46e; }
+.founder-bio { padding-top: 20px; border-top: 1px solid rgba(242,239,228,.32); }
+.founder-lede { margin: 0 0 22px; font: 400 25px/1.4 var(--serif); }
+.founder-bio > p:not(.founder-lede) { margin: 0; color: rgba(242,239,228,.7); font-size: 15px; line-height: 1.75; }
+.founder-principle { margin-top: 37px; padding-top: 18px; border-top: 1px solid rgba(242,239,228,.24); }
+.founder-principle span { display: block; margin-bottom: 12px; color: #d1b46e; font: 700 8px var(--mono); letter-spacing: .15em; text-transform: uppercase; }
+.founder-principle b { display: block; max-width: 28ch; font: 400 21px/1.4 var(--serif); }
+.concept-ledger { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 82px; border: 1px solid rgba(242,239,228,.3); }
+.concept-ledger article { min-height: 300px; padding: 25px 25px 30px; border-right: 1px solid rgba(242,239,228,.25); }
+.concept-ledger article:last-child { border-right: 0; }
+.concept-ledger article > div { display: grid; gap: 10px; min-height: 48px; }
+.concept-ledger span, .concept-ledger small { color: rgba(242,239,228,.5); font: 700 8px/1.4 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+.concept-ledger span { color: #d1b46e; }
+.concept-ledger h3 { margin: 36px 0 18px; font: 400 28px/1.08 var(--serif); }
+.concept-ledger p { margin: 0; color: rgba(242,239,228,.66); font-size: 13px; line-height: 1.7; }
+.concept-note { margin: 16px 0 0; color: rgba(242,239,228,.4); font: 700 8px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+
 /* Services */
 .services-section { padding-top: 40px; }
 .service-list { border-top: 1px solid var(--ink); }
@@ -280,6 +304,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .proof-grid { grid-template-columns: 1fr; }
   .proof-grid article, .proof-grid article + article { min-height: 0; padding: 25px 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .proof-grid article:last-child { border-bottom: 0; }
+  .founder-grid { grid-template-columns: 1fr; gap: 45px; }
+  .concept-ledger { grid-template-columns: 1fr 1fr; }
+  .concept-ledger article { border-bottom: 1px solid rgba(242,239,228,.25); }
+  .concept-ledger article:nth-child(2n) { border-right: 0; }
+  .concept-ledger article:nth-last-child(-n+2) { border-bottom: 0; }
   .phase-line { grid-template-columns: 1fr 1fr; }
   .phase-line article::before { right: 12%; }
   .work-head { grid-template-columns: 1fr; gap: 34px; }
@@ -345,6 +374,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .faq-list summary { grid-template-columns: 30px 1fr 18px; font-size: 19px; }
   .faq-list details > p { margin-left: 45px; }
   .form-grid, .check-grid { grid-template-columns: 1fr; }
+  .concept-ledger { grid-template-columns: 1fr; margin-top: 58px; }
+  .concept-ledger article { min-height: 0; border-right: 0; border-bottom: 1px solid rgba(242,239,228,.25) !important; }
+  .concept-ledger article:last-child { border-bottom: 0 !important; }
   .brand-signature { padding-inline: 12px; }
   .footer-title { align-items: flex-start; flex-direction: column; gap: 18px; padding-block: 24px; }
   .footer-block { grid-template-columns: 1fr 1fr; }
