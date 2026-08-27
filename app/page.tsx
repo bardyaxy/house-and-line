@@ -21,10 +21,54 @@ const phases = [
 ];
 
 const selectedConcepts = [
-  ['2011', 'Shake Shake Shake', 'Co-founder / Owner', 'A retro-modern burger café built around obsessive detail, neighborhood energy, and a complete guest experience.'],
-  ['Concept 02', 'The Boom Boom Room', 'Owner / Creator / Designer', 'A sultry mid-century cocktail lounge shaped through black walnut, low light, gold detail, and modern nostalgia.'],
-  ['Concept 03', 'Manuscript & Dialogue', 'Concept / Experience', 'An industrial restaurant and nightlife concept organized around an open kitchen, a tree installation, saturated light, and movement.'],
-  ['Concept 04', 'Miró Tapas', 'Concept / Design / Ownership', 'An art-forward Spanish hospitality concept inspired by Joan Miró, shared plates, color, spontaneity, and connection.'],
+  {
+    number: 'Concept 01',
+    name: 'Shake Shake Shake',
+    initials: 'SSS',
+    role: 'Co-founder / Owner',
+    format: 'Retro-modern burger café',
+    signature: 'Color · detail · neighborhood energy',
+    copy: 'A fast-casual room made memorable through a complete point of view—from the chairs and counter to the way the brand meets the street.',
+    href: 'https://shakeshakeshake.me/',
+    linkLabel: 'Visit concept',
+    visual: 'shake',
+  },
+  {
+    number: 'Concept 02',
+    name: 'The Boom Boom Room',
+    initials: 'BBR',
+    role: 'Owner / Creator / Designer',
+    format: 'Mid-century cocktail lounge',
+    signature: 'Black walnut · low light · gold detail',
+    copy: 'A compact cocktail room with a cinematic identity, balancing modern nostalgia with an intimate service experience.',
+    href: 'https://www.tacomasboomboomroom.com/story',
+    linkLabel: 'Read the story',
+    visual: 'boom',
+  },
+  {
+    number: 'Concept 03',
+    name: 'Manuscript & Dialogue',
+    initials: 'M+D',
+    role: 'Concept / Experience',
+    format: 'Restaurant + nightlife',
+    signature: 'Industrial shell · rope · saturated light',
+    copy: 'A layered hospitality environment designed to shift from dining into nightlife through sequence, structure, lighting, and movement.',
+    href: 'https://www.manuscripttacoma.com/',
+    linkLabel: 'Visit concept',
+    visual: 'manuscript',
+  },
+  {
+    number: 'Concept 04',
+    name: 'Miró Tapas',
+    initials: 'MIRÓ',
+    role: 'Concept / Design / Ownership',
+    format: 'Art-led Spanish hospitality',
+    signature: 'Color · shared plates · spontaneity',
+    copy: 'A tapas concept inspired by Spain and Joan Miró, connecting an expressive visual language to the social rhythm of shared plates.',
+    href: 'https://mirotapas.com/about',
+    linkLabel: 'Read the concept',
+    visual: 'miro',
+  },
 ];
 
 const faqs = [
@@ -157,9 +201,12 @@ const projectImages = [
   },
 ];
 
+const galleryImageIndexes = [1, 2, 3, 5, 7, 11, 12, 13];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [inquiryDraft, setInquiryDraft] = useState('');
   const [activeImage, setActiveImage] = useState<number | null>(null);
 
   useEffect(() => {
@@ -201,9 +248,15 @@ export default function Home() {
       `${form.get('notes') || ''}`,
     ].join('\n');
 
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 3500);
+    const subject = `Project inquiry — ${form.get('name') || 'Hospitality concept'}`;
+    setInquiryDraft(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`);
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
   }
 
   return (
@@ -287,17 +340,26 @@ export default function Home() {
               <h2 id="founder-title">A concept should feel unmistakable—and work when the <em>room fills.</em></h2>
             </div>
             <div className="founder-bio">
+              <div className="founder-profile" aria-label="Robert Stocker, founder, Tacoma Washington">
+                <span aria-hidden="true">RS</span>
+                <p><b>Robert Stocker</b><small>Founder · Tacoma, Washington</small></p>
+              </div>
               <p className="founder-lede">Robert Stocker creates hospitality from the owner&apos;s side of the table.</p>
               <p>His Tacoma portfolio moves confidently between formats: a retro burger café, a mid-century cocktail lounge, an industrial restaurant and nightclub, and an art-led tapas concept. Each has its own visual language; all are built around the way people gather, work, and return.</p>
               <div className="founder-principle"><span>Operating principle</span><b>Build a place your team loves. Guests will feel it.</b></div>
             </div>
           </div>
           <div className="concept-ledger" aria-label="Selected Robert Stocker hospitality concepts">
-            {selectedConcepts.map(([number, name, role, copy]) => (
-              <article key={name}>
-                <div><span>{number}</span><small>{role}</small></div>
-                <h3>{name}</h3>
-                <p>{copy}</p>
+            {selectedConcepts.map((concept) => (
+              <article className={`concept-card concept-${concept.visual}`} key={concept.name}>
+                <div className="concept-visual" aria-hidden="true"><b>{concept.initials}</b><i>{concept.format}</i></div>
+                <div className="concept-meta"><span>{concept.number}</span><small>{concept.role}</small></div>
+                <h3>{concept.name}</h3>
+                <p>{concept.copy}</p>
+                <dl>
+                  <div><dt>Design language</dt><dd>{concept.signature}</dd></div>
+                </dl>
+                <a href={concept.href} target="_blank" rel="noreferrer">{concept.linkLabel} <span aria-hidden="true">↗</span></a>
               </article>
             ))}
           </div>
@@ -388,12 +450,15 @@ export default function Home() {
           </div>
 
           <div className="project-gallery">
-            {projectImages.slice(1).map((image, index) => (
-              <button className={`project-tile ${image.className}`} type="button" key={image.src} onClick={() => setActiveImage(index + 1)} aria-label={`Open large view: ${image.label}`}>
+            {galleryImageIndexes.map((imageIndex) => {
+              const image = projectImages[imageIndex];
+              return (
+              <button className={`project-tile ${image.className}`} type="button" key={image.src} onClick={() => setActiveImage(imageIndex)} aria-label={`Open large view: ${image.label}`}>
                 <img src={image.src} alt={image.alt} loading="lazy" />
                 <span><b>{image.label}</b><small>{image.meta}</small></span>
               </button>
-            ))}
+              );
+            })}
           </div>
           <p className="caption light-caption">A completed space is the proof of the drawings, decisions, and coordination behind it. Select any image to view it larger.</p>
         </div>
@@ -448,8 +513,9 @@ export default function Home() {
               <div className="check-grid">{['Concept & style', 'Front of house', 'Kitchen design', 'Licensing & permits', 'Construction', 'Full turnkey'].map(item => <label key={item}><input type="checkbox" name="services" value={item} /><span>{item}</span></label>)}</div>
             </fieldset>
             <label><span>About the project</span><textarea required name="notes" rows={4} placeholder="Cuisine, location, timeline—whatever you have." /></label>
-            <button className="button button-paper" type="submit">{copied ? 'Brief copied — ready to share' : 'Prepare my project brief'} <span aria-hidden="true">↗</span></button>
-            <p className="form-note">This copies a formatted brief to your clipboard. No information is sent or stored; connect the studio inbox when contact details are finalized.</p>
+            <button className="button button-paper" type="submit">{copied ? 'Brief copied — choose email next' : 'Prepare my project brief'} <span aria-hidden="true">↗</span></button>
+            {inquiryDraft && <a className="email-draft" href={inquiryDraft}>Open email app with this brief <span aria-hidden="true">↗</span></a>}
+            <p className="form-note">This prepares an email and copies the brief. The recipient stays blank until Robert&apos;s studio inbox is confirmed; no information is sent or stored here.</p>
           </form>
         </div>
       </section>
@@ -457,7 +523,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="brand-signature">
           <a href="#top" aria-label="Hospitality Concepts and Design Services, back to top">
-            <img src="./brand-logo.png" alt="P.S. Hospitality Concepts &amp; Design Services — Inspired spaces, elevated experiences, lasting impressions" />
+            <img src="./brand-logo.jpg" alt="P.S. Hospitality Concepts &amp; Design Services — Inspired spaces, elevated experiences, lasting impressions" loading="lazy" />
           </a>
         </div>
         <div className="footer-title shell">
