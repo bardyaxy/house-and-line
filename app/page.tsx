@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 const services = [
   ['A-000', 'Concept & Style', 'Positioning, guest profile, cuisine, mood, budget, and a clear creative direction before a wall moves.'],
@@ -28,17 +28,154 @@ const faqs = [
   ['What do you need for a first conversation?', 'A napkin sketch is enough. If you have them, bring the menu, lease plan, address, target opening, budget range, and any agency or contractor notes already in hand.'],
 ];
 
+const projectImages = [
+  {
+    src: './projects/manuscript-dining-wide.jpg',
+    alt: 'Wide view of the Manuscript dining room with illuminated banquettes, exposed timber structure, and a suspended tree installation',
+    label: 'Dining room',
+    meta: 'Seating · Lighting · Atmosphere',
+    className: 'project-lead',
+  },
+  {
+    src: './projects/manuscript-exterior.jpg',
+    alt: 'Night exterior of the Manuscript restaurant with illuminated garage doors and custom signage',
+    label: 'Street presence',
+    meta: 'Exterior · Signage · Arrival',
+    className: 'tile-wide',
+  },
+  {
+    src: './projects/manuscript-entry-wide.jpg',
+    alt: 'Entry view connecting a waiting bench, open bar, rope screen, and dining room',
+    label: 'Entry sequence',
+    meta: 'Threshold · Sightlines · Flow',
+    className: 'tile-standard',
+  },
+  {
+    src: './projects/manuscript-bar-wide.jpg',
+    alt: 'Long open bar with wood cladding, dark stone top, square-backed stools, and integrated lighting',
+    label: 'Open bar',
+    meta: 'Millwork · Seating · Service',
+    className: 'tile-wide',
+  },
+  {
+    src: './projects/manuscript-entry-frame.jpg',
+    alt: 'Dining room viewed through a black-framed rope screen at the entry',
+    label: 'Layered threshold',
+    meta: 'Screen · Booths · Framing',
+    className: 'tile-standard',
+  },
+  {
+    src: './projects/manuscript-dining-square.jpg',
+    alt: 'Dining room centered on a lit tree installation and two garage-door openings',
+    label: 'Dining axis',
+    meta: 'Booths · Tables · Focal point',
+    className: 'tile-square',
+  },
+  {
+    src: './projects/manuscript-bar-dining.jpg',
+    alt: 'Curved leather booth seating beside the bar under blue and amber lighting',
+    label: 'Bar lounge',
+    meta: 'Booths · Color · Circulation',
+    className: 'tile-square',
+  },
+  {
+    src: './projects/manuscript-tiffany-wide.jpg',
+    alt: 'Bar-side booth wall with illuminated art, rope guardrail, and warm grazing light',
+    label: 'Art wall',
+    meta: 'Artwork · Grazing light · Texture',
+    className: 'tile-square',
+  },
+  {
+    src: './projects/manuscript-tiffany-detail.jpg',
+    alt: 'Close view of a curved tufted booth and illuminated art feature',
+    label: 'Booth detail',
+    meta: 'Upholstery · Art · Intimacy',
+    className: 'tile-square',
+  },
+  {
+    src: './projects/manuscript-bar-rail.jpg',
+    alt: 'Bar viewed across a rope guardrail with exposed timber and blue ceiling light',
+    label: 'Bar overlook',
+    meta: 'Ropework · Structure · Glow',
+    className: 'tile-square',
+  },
+  {
+    src: './projects/manuscript-bar-installation.jpg',
+    alt: 'Bar installation with rope screen, illuminated art panel, timber post, and millwork in progress',
+    label: 'Detail in progress',
+    meta: 'Field coordination · Millwork',
+    className: 'tile-square',
+  },
+  {
+    src: './projects/manuscript-hall-pink-wide.jpg',
+    alt: 'Finished corridor lighting detail with repeated circular sconces and pink linear light',
+    label: 'Light corridor',
+    meta: 'Custom detail · Repetition · Color',
+    className: 'tile-wide',
+  },
+  {
+    src: './projects/manuscript-hall-construction.jpg',
+    alt: 'Restaurant corridor during construction with exposed framing and mechanical ductwork',
+    label: 'Field condition',
+    meta: 'Construction · Coordination',
+    className: 'tile-standard',
+  },
+  {
+    src: './projects/manuscript-exterior-light.jpg',
+    alt: 'Vertical exterior light fixture glowing red and amber beside a garage door',
+    label: 'Exterior fixture',
+    meta: 'Custom light · Facade',
+    className: 'tile-detail',
+  },
+  {
+    src: './projects/manuscript-hall-red.jpg',
+    alt: 'Red illuminated corridor creating a compressed transition between rooms',
+    label: 'Red passage',
+    meta: 'Sequence · Saturated light',
+    className: 'tile-detail crop-screenshot',
+  },
+  {
+    src: './projects/manuscript-hall-blue.jpg',
+    alt: 'Blue corridor lighting study with repeated circular wall fixtures and red linear accents',
+    label: 'Blue study',
+    meta: 'Fixture rhythm · Contrast',
+    className: 'tile-detail crop-screenshot',
+  },
+  {
+    src: './projects/manuscript-hall-red-detail.jpg',
+    alt: 'Red corridor lighting study showing circular sconces and continuous linear light',
+    label: 'Red study',
+    meta: 'Mockup · Color temperature',
+    className: 'tile-detail crop-screenshot',
+  },
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const workRef = useRef<HTMLDivElement>(null);
+  const [activeImage, setActiveImage] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (activeImage === null) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveImage(null);
+      if (event.key === 'ArrowLeft') setActiveImage((activeImage - 1 + projectImages.length) % projectImages.length);
+      if (event.key === 'ArrowRight') setActiveImage((activeImage + 1) % projectImages.length);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKey);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [activeImage]);
 
   function closeMenu() {
     setMenuOpen(false);
-  }
-
-  function moveWork(direction: number) {
-    workRef.current?.scrollBy({ left: direction * 420, behavior: 'smooth' });
   }
 
   async function prepareInquiry(event: FormEvent<HTMLFormElement>) {
@@ -196,30 +333,50 @@ export default function Home() {
         <div className="shell">
           <div className="work-head">
             <div>
-              <div className="section-kicker"><span>05</span><p>Representative drawing set</p></div>
-              <h2 id="work-title">From the flat file.</h2>
+              <div className="section-kicker light"><span>05</span><p>Selected built work</p></div>
+              <h2 id="work-title">The drawing set, <em>brought to life.</em></h2>
             </div>
-            <div className="work-controls" aria-label="Drawing set controls">
-              <button type="button" onClick={() => moveWork(-1)} aria-label="Previous drawing">←</button>
-              <button type="button" onClick={() => moveWork(1)} aria-label="Next drawing">→</button>
+            <div className="work-intro">
+              <span>Project 01 / Manuscript</span>
+              <p>An industrial shell shaped into a layered hospitality experience—from street presence and entry sequence to the bar, dining room, custom lighting, and field coordination.</p>
             </div>
           </div>
-          <div className="work-track" ref={workRef} tabIndex={0}>
-            {[
-              ['A-401', 'The bar elevation', 'Millwork · Lighting · Service flow', 'bar-art'],
-              ['K-210', 'The kitchen line', 'Equipment · Hood · Pass', 'kitchen-art'],
-              ['A-520', 'The booth section', 'Comfort · Materials · Detail', 'booth-art'],
-              ['C-001', 'The opening set', 'Coordination · Inspection · Punch', 'opening-art'],
-            ].map(([number, title, meta, art]) => (
-              <article className="work-card" key={number}>
-                <div className={`diagram ${art}`} aria-hidden="true"><span /><span /><span /><span /></div>
-                <div className="work-meta"><span>{number}</span><h3>{title}</h3><p>{meta}</p></div>
-              </article>
+
+          <button className="project-hero" type="button" onClick={() => setActiveImage(0)} aria-label="Open large view of the Manuscript dining room">
+            <img src={projectImages[0].src} alt={projectImages[0].alt} />
+            <span className="project-hero-copy"><b>{projectImages[0].label}</b><small>{projectImages[0].meta}</small><i>View image ↗</i></span>
+          </button>
+
+          <div className="project-facts" aria-label="Manuscript project highlights">
+            <span><small>Scope</small>Front of house</span>
+            <span><small>Key spaces</small>Entry · Bar · Dining</span>
+            <span><small>Details</small>Millwork · Lighting · Seating</span>
+            <span><small>Delivery</small>Design through field</span>
+          </div>
+
+          <div className="project-gallery">
+            {projectImages.slice(1).map((image, index) => (
+              <button className={`project-tile ${image.className}`} type="button" key={image.src} onClick={() => setActiveImage(index + 1)} aria-label={`Open large view: ${image.label}`}>
+                <img src={image.src} alt={image.alt} loading="lazy" />
+                <span><b>{image.label}</b><small>{image.meta}</small></span>
+              </button>
             ))}
           </div>
-          <p className="caption">Representative design studies shown in place of client-confidential work.</p>
+          <p className="caption light-caption">A completed space is the proof of the drawings, decisions, and coordination behind it. Select any image to view it larger.</p>
         </div>
       </section>
+
+      {activeImage !== null && (
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label={`${projectImages[activeImage].label} image viewer`} onClick={() => setActiveImage(null)}>
+          <button className="lightbox-close" type="button" onClick={() => setActiveImage(null)} aria-label="Close image viewer">Close ×</button>
+          <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setActiveImage((activeImage - 1 + projectImages.length) % projectImages.length); }} aria-label="Previous image">←</button>
+          <figure onClick={(event) => event.stopPropagation()}>
+            <img src={projectImages[activeImage].src} alt={projectImages[activeImage].alt} />
+            <figcaption><b>{projectImages[activeImage].label}</b><span>{projectImages[activeImage].meta}</span><small>{String(activeImage + 1).padStart(2, '0')} / {String(projectImages.length).padStart(2, '0')}</small></figcaption>
+          </figure>
+          <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setActiveImage((activeImage + 1) % projectImages.length); }} aria-label="Next image">→</button>
+        </div>
+      )}
 
       <section className="section faq-section" id="faq" aria-labelledby="faq-title">
         <div className="shell faq-grid">
