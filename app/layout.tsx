@@ -13,7 +13,7 @@ export const metadata: Metadata = {
       'Restaurant concept, front-of-house and kitchen design—from first sketch to final inspection.',
     type: 'website',
     siteName: 'Hospitality Concepts and Design Services',
-    images: [{ url: './og.png', width: 1200, height: 630, alt: 'Hospitality Concepts and Design Services — From first sketch to final inspection' }],
+    images: [{ url: './og.png', width: 1200, height: 630, alt: 'P.S. Hospitality Concepts & Design Services — Inspired spaces, elevated experiences, lasting impressions' }],
   },
   twitter: {
     card: 'summary_large_image',
