@@ -22,6 +22,7 @@ a { color: inherit; }
 .site-header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 94%, transparent); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
 .nav { min-height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; }
 .wordmark { display: inline-flex; align-items: center; gap: 11px; width: max-content; font: 700 12px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+.wordmark-detail { color: rgba(23,36,27,.55); font-size: 9px; letter-spacing: .11em; }
 .brand-dot { width: 9px; height: 9px; background: var(--forest); border-radius: 50%; box-shadow: 14px 0 0 -3px var(--brass); }
 .nav-links { display: flex; gap: 30px; }
 .nav-links a { font: 600 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
@@ -73,6 +74,7 @@ h1 em { color: var(--forest); font-weight: 400; }
   .shell { width: min(100% - 24px, 1180px); }
   .nav { min-height: 62px; }
   .button-small { display: none; }
+  .wordmark-detail { display: none; }
   h1 { font-size: 48px; }
   .hero-copy { padding-inline: 24px; }
   .drawing-sheet { min-height: 880px; }

@@ -21,7 +21,7 @@ const phases = [
 ];
 
 const faqs = [
-  ['When should we bring House & Line in?', 'As early as possible—ideally before signing a lease. We can test a site against seating, kitchen, accessibility, and infrastructure needs before those constraints become expensive. If you are already underway, we can still enter at any phase.'],
+  ['When should we bring Hospitality Concepts in?', 'As early as possible—ideally before signing a lease. We can test a site against seating, kitchen, accessibility, and infrastructure needs before those constraints become expensive. If you are already underway, we can still enter at any phase.'],
   ['Can you work with our architect or contractor?', 'Yes. À la carte engagements are built for existing teams. We can own a specific drawing package, permitting path, or field-coordination scope and plug into the people you already trust.'],
   ['Do you handle agency conversations directly?', 'That is part of the point. We prepare the relevant exhibits, coordinate submissions, respond to comments, and help guide inspection readiness so you are not left translating technical feedback alone.'],
   ['How are projects priced?', 'Each engagement is scoped around the actual sheets, approvals, and construction support required. Turnkey work is proposed as a coordinated path; focused work is priced as a defined package.'],
@@ -46,7 +46,7 @@ export default function Home() {
     const form = new FormData(event.currentTarget);
     const servicesNeeded = form.getAll('services').join(', ') || 'Not selected';
     const text = [
-      'HOUSE & LINE — PROJECT INQUIRY',
+      'HOSPITALITY CONCEPTS AND DESIGN SERVICES — PROJECT INQUIRY',
       '',
       `Name: ${form.get('name') || ''}`,
       `Email: ${form.get('email') || ''}`,
@@ -66,9 +66,9 @@ export default function Home() {
     <main id="top">
       <header className="site-header">
         <nav className="nav shell" aria-label="Main navigation">
-          <a className="wordmark" href="#top" aria-label="House and Line, home" onClick={closeMenu}>
+          <a className="wordmark" href="#top" aria-label="Hospitality Concepts and Design Services, home" onClick={closeMenu}>
             <span className="brand-dot" aria-hidden="true" />
-            House &amp; Line
+            Hospitality Concepts <span className="wordmark-detail">&amp; Design Services</span>
           </a>
           <div className="nav-links" aria-label="Page sections">
             <a href="#services">Services</a>
@@ -93,7 +93,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">Hospitality Design &amp; Consulting</p>
             <h1 id="hero-title">Restaurants, drawn from first sketch to <em>final inspection.</em></h1>
-            <p className="lede">House &amp; Line shapes the concept, dining room, and kitchen—then carries every plan through licensing, permitting, construction, and opening night.</p>
+            <p className="lede">Hospitality Concepts and Design Services shapes the concept, dining room, and kitchen—then carries every plan through licensing, permitting, construction, and opening night.</p>
             <div className="hero-actions">
               <a className="button" href="#contact">Start your project <span aria-hidden="true">↗</span></a>
               <a className="text-link" href="#services">Explore the drawing set <span aria-hidden="true">↓</span></a>
@@ -125,7 +125,7 @@ export default function Home() {
           <h2 id="intro-title">Designers who speak <em>inspector.</em></h2>
           <div>
             <p className="intro-lede">The room guests see and the systems they never notice belong to the same project. We draw them that way.</p>
-            <p className="body-copy">House &amp; Line joins concept thinking with technical execution. The atmosphere, seating plan, kitchen flow, agency sheets, and site decisions stay connected from day one.</p>
+            <p className="body-copy">Hospitality Concepts and Design Services joins concept thinking with technical execution. The atmosphere, seating plan, kitchen flow, agency sheets, and site decisions stay connected from day one.</p>
           </div>
         </div>
         <div className="proof-grid">
@@ -266,7 +266,7 @@ export default function Home() {
 
       <footer>
         <div className="footer-title shell">
-          <a className="wordmark" href="#top"><span className="brand-dot" aria-hidden="true" />House &amp; Line</a>
+          <a className="wordmark" href="#top"><span className="brand-dot" aria-hidden="true" />Hospitality Concepts <span className="wordmark-detail">&amp; Design Services</span></a>
           <p>Hospitality design &amp; consulting<br />Concept · Design · Permit · Build · Open</p>
           <a href="#top">Back to top ↑</a>
         </div>
