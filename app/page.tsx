@@ -204,7 +204,6 @@ export default function Home() {
       <header className="site-header">
         <nav className="nav shell" aria-label="Main navigation">
           <a className="wordmark" href="#top" aria-label="Hospitality Concepts and Design Services, home" onClick={closeMenu}>
-            <span className="brand-mark" aria-hidden="true"><img src="./brand-logo.png" alt="" /></span>
             Hospitality Concepts <span className="wordmark-detail">&amp; Design Services</span>
           </a>
           <div className="nav-links" aria-label="Page sections">
@@ -421,11 +420,13 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <div className="footer-title shell">
-          <a className="footer-brand" href="#top" aria-label="Hospitality Concepts and Design Services, back to top">
+      <footer className="site-footer">
+        <div className="brand-signature">
+          <a href="#top" aria-label="Hospitality Concepts and Design Services, back to top">
             <img src="./brand-logo.png" alt="P.S. Hospitality Concepts &amp; Design Services — Inspired spaces, elevated experiences, lasting impressions" />
           </a>
+        </div>
+        <div className="footer-title shell">
           <p>Hospitality design &amp; consulting<br />Concept · Design · Permit · Build · Open</p>
           <a href="#top">Back to top ↑</a>
         </div>
